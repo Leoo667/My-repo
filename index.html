@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>ChatFlow Premium - Ephemeral Chat</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Join Screen -->
+    <div id="joinContainer" class="container join-container">
+        <div class="glass-card">
+            <div class="logo">
+                <div class="logo-icon">💬</div>
+                <h1>ChatFlow</h1>
+                <p class="tagline">Zero traces. Pure privacy.</p>
+            </div>
+            
+            <div class="form-group">
+                <input type="text" id="roomCode" placeholder="Room code (min 3 chars)" maxlength="20" autocomplete="off">
+                <input type="text" id="username" placeholder="Your name (optional)" maxlength="20" autocomplete="off">
+                <label class="checkbox">
+                    <input type="checkbox" id="ghostMode">
+                    <span>👻 Ghost Mode (invisible)</span>
+                </label>
+                <button id="joinBtn" class="btn-primary">
+                    <span>Join Room</span>
+                    <span class="arrow">→</span>
+                </button>
+            </div>
+            
+            <div class="features">
+                <span>✨ No registration</span>
+                <span>🔒 Auto-delete</span>
+                <span>🎤 Voice messages</span>
+                <span>📎 File sharing</span>
+                <span>🚫 No screenshots</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat Screen -->
+    <div id="chatContainer" class="container chat-container" style="display: none;">
+        <div class="chat-glass">
+            <!-- Header -->
+            <div class="chat-header">
+                <div class="room-info">
+                    <div class="room-badge">
+                        <span>📡</span>
+                        <span id="roomCodeDisplay"></span>
+                    </div>
+                    <div class="user-badge" id="userCount">
+                        <span>👥</span>
+                        <span>0</span>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <button id="themeToggle" class="icon-btn" title="Theme">🌙</button>
+                    <button id="soundToggle" class="icon-btn" title="Sound">🔊</button>
+                    <button id="endChatBtn" class="icon-btn end-btn" title="End Chat">🏁</button>
+                    <button id="panicBtn" class="icon-btn panic-btn" title="Panic Mode">⚠️</button>
+                </div>
+            </div>
+            
+            <!-- Timer -->
+            <div class="timer-bar">
+                <span>⏱️ Chat expires in:</span>
+                <span id="timer">59:59</span>
+            </div>
+            
+            <!-- Messages Area -->
+            <div class="messages-area" id="messagesArea">
+                <div id="messages"></div>
+            </div>
+            
+            <!-- Typing Indicator -->
+            <div id="typingIndicator" class="typing-indicator"></div>
+            
+            <!-- Input Area -->
+            <div class="input-area">
+                <div class="sd-buttons">
+                    <button class="sd-option active" data-time="0">📝 Persist</button>
+                    <button class="sd-option" data-time="5000">⏱️ 5s</button>
+                    <button class="sd-option" data-time="10000">⏱️ 10s</button>
+                    <button class="sd-option" data-time="30000">⏱️ 30s</button>
+                    <button class="sd-option" data-time="60000">⏱️ 1m</button>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="messageInput" placeholder="Type a message..." maxlength="500" autocomplete="off">
+                    <button id="fileBtn" class="file-btn" title="Upload File (Image/Video/Document)">📎</button>
+                    <button id="voiceBtn" class="voice-btn" title="Voice Message (press and hold)">🎤</button>
+                    <button id="sendBtn" class="send-btn">Send</button>
+                </div>
+                <div class="voice-recording" id="voiceRecording" style="display: none;">
+                    <div class="recording-pulse"></div>
+                    <span>Recording... <span id="recordingTime">0</span>s</span>
+                    <button id="stopRecordingBtn">Stop</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden file input -->
+    <input type="file" id="fileInput" accept="image/*,video/*,application/pdf,.doc,.docx,.txt" style="display: none;">
+
+    <!-- Toast Notifications -->
+    <div id="toast" class="toast"></div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
